@@ -1,4 +1,3 @@
-// Hi
 // Find DOM element and hold onto it, so we don't have to search for it
 // every time we use it.
 const calcForm = document.getElementById("calc-form");
@@ -23,37 +22,40 @@ function getFormValues() {
   let years;
   let rate;
 
-  amount = calcForm.elements["loan-amount"].value;
-  amount = parseFloat(amount);
+  amount = parseFloat(calcForm.elements["loan-amount"].value);
   if (amount <= 0 || isNaN(amount)) {
     errors.amount = "Invalid loan amount";
-    // errorMessage.innerHTML = `${amountError}`;
   }
 
-  years = calcForm.elements["loan-years"].value;
-  years = parseFloat(years);
+  years = parseFloat(calcForm.elements["loan-years"].value);
   if (years <= 0 || isNaN(years)) {
     errors.years = "Invalid loan duration";
-    // errorMessage.innerHTML = `${amountError}<br>${yearsError}`;
   }
 
-  rate = calcForm.elements["loan-rate"].value;
-  rate = parseFloat(rate);
+  rate = parseFloat(calcForm.elements["loan-rate"].value);
   if (rate <= 0 || isNaN(rate)) {
     errors.rate = "Invalid interest rate";
-    // errorMessage.innerHTML = `${amountError}<br>${yearsError}<br>
-    //   ${rateError}<br>`;
   }
 
-  if (Object.keys(errors).length > 0)
-    ? handleErrors(errors)
-    : formData = { amount, years, rate };
+  if (Object.keys(errors).length > 0) {
+    handleErrors(errors);
+  }
 
-  return formData
+  formData = { amount, years, rate };
+  return formData;
 }
 
 function handleErrors(errors) {
+  const showErrors = document.getElementById("show-error");
+  const monthlyPayment = document.getElementById("calc-monthly-payment");
+  monthlyPayment.innerHTML = '';
+  let errorMessage = '';
 
+  for (let error of Object.values(errors)) {
+    errorMessage += `${error}<br>`;
+  }
+  showErrors.innerHTML = errorMessage;
+  return;
 }
 
 
@@ -73,9 +75,8 @@ function calcMonthlyPayment(amount, years, rate) {
 
 function getFormValuesAndDisplayResults() {
 
-  const formData = handleErrors();
+  const formData = getFormValues();
   const { amount, years, rate } = formData;
-  console.log("I made it here");
 
   let rawMonthPayment = calcMonthlyPayment(amount, years, rate);
 
