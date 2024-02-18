@@ -43,18 +43,20 @@ function getFormValues() {
 
   formData = { amount, years, rate };
   return formData;
+
 }
 
 function handleErrors(errors) {
   const showErrors = document.getElementById("show-error");
   const monthlyPayment = document.getElementById("calc-monthly-payment");
-  monthlyPayment.innerHTML = '';
   let errorMessage = '';
 
   for (let error of Object.values(errors)) {
     errorMessage += `${error}<br>`;
   }
   showErrors.innerHTML = errorMessage;
+  monthlyPayment.innerHTML = '';
+
   return;
 }
 
