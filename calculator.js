@@ -1,3 +1,4 @@
+// Hi
 // Find DOM element and hold onto it, so we don't have to search for it
 // every time we use it.
 const calcForm = document.getElementById("calc-form");
