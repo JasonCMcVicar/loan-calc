@@ -16,8 +16,8 @@ function getFormValues() {
   //reset dom
   const monthlyPayment = document.getElementById("calc-monthly-payment");
   monthlyPayment.innerHTML = '';
-  // const errorMessage = document.getElementById("show-error");
-  // errorMessage.innerHTML = '';
+  const errorMessage = document.getElementById("show-error");
+  errorMessage.innerHTML = '';
   let amount;
   let years;
   let rate;
@@ -39,6 +39,7 @@ function getFormValues() {
 
   if (Object.keys(errors).length > 0) {
     handleErrors(errors);
+    return;
   }
 
   formData = { amount, years, rate };
@@ -48,16 +49,13 @@ function getFormValues() {
 
 function handleErrors(errors) {
   const showErrors = document.getElementById("show-error");
-  const monthlyPayment = document.getElementById("calc-monthly-payment");
   let errorMessage = '';
 
   for (let error of Object.values(errors)) {
     errorMessage += `${error}<br>`;
   }
   showErrors.innerHTML = errorMessage;
-  monthlyPayment.innerHTML = '';
 
-  return;
 }
 
 
@@ -78,15 +76,18 @@ function calcMonthlyPayment(amount, years, rate) {
 function getFormValuesAndDisplayResults() {
 
   const formData = getFormValues();
-  const { amount, years, rate } = formData;
 
-  let rawMonthPayment = calcMonthlyPayment(amount, years, rate);
+  if (formData) {
+    const { amount, years, rate } = formData;
 
-  let formattedPayment = rawMonthPayment.toFixed(2);
-  formattedPayment = parseFloat(formattedPayment); //convert to a number
+    let rawMonthPayment = calcMonthlyPayment(amount, years, rate);
 
-  const monthlyPayment = document.getElementById("calc-monthly-payment");
-  monthlyPayment.innerHTML = formattedPayment;
+    let formattedPayment = rawMonthPayment.toFixed(2);
+    formattedPayment = parseFloat(formattedPayment); //convert to a number
+
+    const monthlyPayment = document.getElementById("calc-monthly-payment");
+    monthlyPayment.innerHTML = formattedPayment;
+  }
 }
 
 
@@ -99,7 +100,6 @@ function setInitialValues() {
   calcForm.elements["loan-years"].value = 10;
   calcForm.elements["loan-rate"].value = 4.5;
 
-  return;
 }
 
 
