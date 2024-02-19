@@ -11,28 +11,25 @@ const calcForm = document.getElementById("calc-form");
 function getFormValues() {
 
   let formData = {};
-  let errors = {};
+  const errors = {};
 
   //reset dom
   const monthlyPayment = document.getElementById("calc-monthly-payment");
   monthlyPayment.innerHTML = '';
   const errorMessage = document.getElementById("show-error");
   errorMessage.innerHTML = '';
-  let amount;
-  let years;
-  let rate;
 
-  amount = parseFloat(calcForm.elements["loan-amount"].value);
+  let amount = parseFloat(calcForm.elements["loan-amount"].value);
   if (amount <= 0 || isNaN(amount)) {
     errors.amount = "Invalid loan amount";
   }
 
-  years = parseFloat(calcForm.elements["loan-years"].value);
+  let years = parseFloat(calcForm.elements["loan-years"].value);
   if (years <= 0 || isNaN(years)) {
     errors.years = "Invalid loan duration";
   }
 
-  rate = parseFloat(calcForm.elements["loan-rate"].value);
+  let rate = parseFloat(calcForm.elements["loan-rate"].value);
   if (rate <= 0 || isNaN(rate)) {
     errors.rate = "Invalid interest rate";
   }
@@ -42,8 +39,7 @@ function getFormValues() {
     return;
   }
 
-  formData = { amount, years, rate };
-  return formData;
+  return formData = { amount, years, rate };
 
 }
 
